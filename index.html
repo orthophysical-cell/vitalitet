@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ολοκληρωμένο Πρόγραμμα Προαγωγής Υγείας</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #eff6ff;
+            --secondary: #0284c7;
+            --text: #1f2937;
+            --text-muted: #4b5563;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --warning: #ea580c;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+        }
+        .screen {
+            display: none;
+        }
+        .screen.active {
+            display: block;
+        }
+        .creator-title {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--secondary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 26px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .bounce-arrow {
+            text-align: center;
+            font-size: 24px;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+        .credentials-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 30px;
+        }
+        .credentials-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .credentials-list {
+            list-style: none;
+        }
+        .credentials-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+        .credentials-list li::before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .intro-text {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .privacy-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+            border: 1px dashed #cbd5e1;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .pillar-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 8px;
+        }
+        .pillar-item h3 {
+            font-size: 15px;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .pillar-item p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background-color: var(--border);
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        .question-meta {
+            font-size: 14px;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+        .question-text {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .option-btn {
+            background: white;
+            border: 2px solid var(--border);
+            padding: 16px 20px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text);
+            font-weight: 500;
+        }
+        .option-btn:hover {
+            border-color: var(--secondary);
+            background-color: var(--primary-light);
+        }
+        .gate-description {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            text-align: center;
+            line-height: 1.5;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text);
+            transition: border-color 0.2s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        .score-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 24px;
+            background: var(--primary-light);
+            border-radius: 12px;
+        }
+        .score-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .score-value {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .report-section {
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        .report-section h2 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .report-list {
+            list-style: none;
+        }
+        .report-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: var(--text);
+        }
+        .report-list li::before {
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .positive-section .report-list li::before {
+            content: "✓";
+            color: var(--success);
+        }
+        .negative-section .report-list li::before {
+            content: "⚠";
+            color: var(--warning);
+        }
+        .steps-section .report-list li {
+            padding-left: 28px;
+            margin-bottom: 16px;
+        }
+        .steps-section .report-list li::before {
+            display: none;
+        }
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            background: var(--secondary);
+            color: white;
+            font-size: 11px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .premium-box {
+            background-color: #fffbeb;
+            border: 2px solid #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 24px;
+            border-radius: 8px;
+            margin-top: 35px;
+        }
+        .premium-box h3 {
+            color: #b45309;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .premium-box p {
+            font-size: 14px;
+            color: #78350f;
+            line-height: 1.5;
+        }
+        footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .signature {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .disclaimer {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 10px auto; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 22px; }
+            .question-text { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- STEG 0: EINSAĞÖGΗ -->
+    <div id="screen-intro" class="screen active">
+        <div class="creator-title">ΔΗΜΙΟΥΡΓΟΣ: ΝΙΚΟΣ ΑΛΕΞΟΠΟΥΛΟΣ</div>
+        <h1>Ολοκληρωμένο Πρόγραμμα Προαγωγής Υγείας</h1>
+        <div class="bounce-arrow">↓</div>
+        
+        <div class="credentials-box">
+            <div class="credentials-title">Επιστημονικός Υπεύθυνος: ΝΙΚΟΣ ΑΛΕΞΟΠΟΥΛΟΣ</div>
+            <ul class="credentials-list">
+                <li>Leg. Naprapat</li>
+                <li>Ειδικός Φυσιοθεραπευτής Χειροπρακτικός</li>
+                <li>Παιδαγωγός Υγείας</li>
+            </ul>
+        </div>
+
+        <p class="intro-text">
+            Ανακαλύψτε το δείκτη ευεξίας σας μέσω μιας επιστημονικά δομημένης αξιολόγησης. Αναλύουμε τους τέσσερις βασικούς πυλώνες της καθημερινής σας υγείας.
+        </p>
+
+        <div class="pillars-grid">
+            <div class="pillar-item">
+                <h3>1. Ύπνος & Στρες</h3>
+                <p>Ποιότητα ανάπαυσης και διαχείριση άγχους.</p>
+            </div>
+            <div class="pillar-item">
+                <h3>2. Φυσική Δραστηριότητα</h3>
+                <p>Άσκηση και μείωση καθιστικού χρόνου.</p>
+            </div>
+            <div class="pillar-item">
+                <h3>3. Διατροφή & Ενυδάτωση</h3>
+                <p>Ισορροπημένα γεύματα και πρόσληψη νερού.</p>
+            </div>
+            <div class="pillar-item">
+                <h3>4. Επιβλαβείς Συνήθειες</h3>
+                <p>Έλεγχος καπνίσματος και αλκοόλ.</p>
+            </div>
+        </div>
+
+        <div class="privacy-badge">
+            🔒 100% Ανώνυμη & Ασφαλής Αξιολόγηση
+        </div>
+
+        <button class="btn" onclick="startQuiz()">Έναρξη Τεστ</button>
+    </div>
+
+    <!-- STEG 1: ΕΡΩΤΗΜΑΤΟΛΟΓΙΟ -->
+    <div id="screen-quiz" class="screen">
+        <div class="progress-bar-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        
+        <div id="question-meta" class="question-meta">Πυλώνας 1</div>
+        <div id="question-text" class="question-text">Ερώτηση...</div>
+        
+        <div id="options-container" class="options-list"></div>
+    </div>
+
+    <!-- STEG 2: SPÄRREN -->
+    <div id="screen-gate" class="screen">
+        <h1>Ξεκλειδώστε την Αναφορά σας</h1>
+        
+        <p class="gate-description">
+            Tack för ditt deltagande! För να se ditt Vitalitetsindex och låsa upp dina personliga hälsoråd, vänligen fyll i din e-postadress nedan.
+        </p>
+
+        <form id="email-form" onsubmit="unlockResults(event)">
+            <div class="form-group">
+                <input type="email" id="user-email" class="form-control" placeholder="E-postadress" required>
+            </div>
+
+            <button type="submit" class="btn">Lås upp mina resultat & skicka rapport</button>
+        </form>
+
+        <div class="privacy-badge" style="margin-top: 20px; margin-bottom: 0;">
+            🔒 Η αναφορά σας θα σταλεί άμεσα στην ηλεκτρονική σας διεύθυνση.
+        </div>
+    </div>
+
+    <!-- STEG 3: RESULTAT -->
+    <div id="screen-report" class="screen">
+        <h1>Η Αναφορά Υγείας σας</h1>
+
+        <div class="score-container">
+            <div class="score-title">Δείκτης Ζωτικότητας (Vitalitetsindex)</div>
+            <div id="score-value" class="score-value">0 / 100</div>
+        </div>
+
+        <div class="report-section positive-section">
+            <h2>Θετικά Σημεία</h2>
+            <ul id="positive-list" class="report-list"></ul>
+        </div>
+
+        <div class="report-section negative-section">
+            <h2>Τομείς για Βελτίωση</h2>
+            <ul id="negative-list" class="report-list"></ul>
+        </div>
+
+        <div class="report-section steps-section">
+            <h2>3 Μικρά Καθημερινά Βήματα</h2>
+            <ul id="steps-list" class="report-list"></ul>
+        </div>
+
+        <div class="premium-box">
+            <h3>Personlig Rådgivning</h3>
+            <p>
+                Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.
+            </p>
+        </div>
+
+        <footer>
+            <div class="signature">
+                Με εκτίμηση,<br>
+                ΝΙΚΟΣ ΑΛΕΞΟΠΟΥΛΟΣ<br>
+                Leg. Naprapat - Ειδικός Φυσιοθεραπευτής Χειροπρακτικός - Παιδαγωγός Υγείας
+            </div>
+            <div class="disclaimer">
+                Αποποίηση ευθύνης: Αυτή η αξιολόγηση παρέχει γενικές συμβουλές προαγωγής υγείας και δεν αντικαθιστά την ιατρική διάγνωση ή θεραπεία.
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            pillar: "1. Ύπνος & Στρες",
+            text: "Πόσες ώρες κοιμάστε συνήθως το night και πώς αξιολογείτε την ποιότητα του ύπνου σας;",
+            options: [
+                { text: "7-8 ώρες συνεχόμενου, αναζωογονητικού ύπνου", score: 12.5, type: "pos", msg: "Επαρκής και ποιοτικός ύπνος για αποκατάσταση.", step: null },
+                { text: "6-7 ώρες, αλλά συχνά ξυπνάω κουρασμένος/η", score: 6.25, type: "neg", msg: "Μη αποτελεσματική αποκατάσταση κατά τη διάρκεια του ύπνου.", step: "Καθιερώστε σταθερή ώρα κατάκλισης και αποφύγετε οθόνες 1 ώρα πριν τον ύπνο." },
+                { text: "Λιγότερο από 6 ώρες ή έντονη αϋπνία", score: 0, type: "neg", msg: "Έλλειψη ύπνου που επηρεάζει την υγεία και την ενέργεια.", step: "Δημιουργήστε ένα σκοτεινό, δροσερό περιβάλλον ύπνου χωρίς ηλεκτρονικές συσκευές." }
+            ]
+        },
+        {
+            pillar: "1. Ύπνος & Στρες",
+            text: "Πώς διαχειρίζεστε το καθημερινό άγχος;",
+            options: [
+                { text: "Νιώθω ήρεμος/η και ελέγχω τις καταστάσεις", score: 12.5, type: "pos", msg: "Καλή διαχείριση του καθημερινού στρες.", step: null },
+                { text: "Βιώνω περιστασιακό στρες που με κουράζει", score: 6.25, type: "neg", msg: "Μέτρια επίπεδα στρες που χρειάζονται προσοχή.", step: "Αφιερώστε 5 λεπτά την ημέρα σε ασκήσεις βαθιών αναπνοών." },
+                { text: "Βιώνω συνεχές και ανεξέλεγκτο άγχος", score: 0, type: "neg", msg: "Υψηλό επίπεδο στρες που επιβαρύνει τον οργανισμό.", step: "Εντάξτε μικρά διαλείμματα αποσυμπίεσης κατά τη διάρκεια της εργασίας σας." }
+            ]
+        },
+        {
+            pillar: "2. Φυσική Δραστηριότητα",
+            text: "Πόσο συχνά γυμνάζεστε ή κάνετε σωματική άσκηση (π.χ. περπάτημα, τρέξιμο, γυμναστήριο);",
+            options: [
+                { text: "3 ή περισσότερες φορές την εβδομάδα (συνολικά >150 λεπτά)", score: 12.5, type: "pos", msg: "Επαρκής εβδομαδιαία σωματική δραστηριότητα.", step: null },
+                { text: "1-2 φορές την εβδομάδα", score: 6.25, type: "neg", msg: "Μέτρια σωματική δραστηριότητα, επιδέχεται βελτίωση.", step: "Προσθέστε έναν 15λεπτο περίπατο τις ημέρες που δεν γυμνάζεστε." },
+                { text: "Σχεδόν καθόλου / Ελάχιστη άσκηση", score: 0, type: "neg", msg: "Έλλειψη τακτικής φυσικής δραστηριότητας.", step: "Ξεκινήστε με 10 λεπτά περπάτημα κάθε μέρα μετά το κύριο γεύμα." }
+            ]
+        },
+        {
+            pillar: "2. Φυσική Δραστηριότητα",
+            text: "Πόσες ώρες την ημέρα περνάτε καθιστοί (γραφείο, αυτοκίνητο, τηλεόραση);",
+            options: [
+                { text: "Λιγότερο από 4 ώρες / Κινούμαι συχνά", score: 12.5, type: "pos", msg: "Μειωμένος καθιστικός χρόνος μέσα στη μέρα.", step: null },
+                { text: "4-8 ώρες την ημέρα", score: 6.25, type: "neg", msg: "Αυξημένος καθιστικός χρόνος.", step: "Σηκωθείτε για 2 λεπτά κάθε μία ώρα καθιστικής εργασίας." },
+                { text: "Πάνω από 8 ώρες την ημέρα", score: 0, type: "neg", msg: "Παρατεταμένη καθιστική ζωή.", step: "Χρησιμοποιήστε σκάλα αντί για ασανσέρ και πραγματοποιήστε σύντομες διαδρομές με τα πόδια." }
+            ]
+        },
+        {
+            pillar: "3. Διατροφή & Ενυδάτωση",
+            text: "Πόσο συχνά καταναλώνετε φρούτα, λαχανικά και γεύματα υψηλής θρεπτικής αξίας;",
+            options: [
+                { text: "Καθημερινά σε κάθε γεύμα", score: 12.5, type: "pos", msg: "Ισορροπημένη διατροφή πλούσια σε θρεπτικά συστατικά.", step: null },
+                { text: "Μερικές φορές την εβδομάδα", score: 6.25, type: "neg", msg: "Περιπτωσιολογική κατανάλωση φρούτων και λαχανικών.", step: "Προσθέστε μία μερίδα λαχανικών ή ένα φρούτο στο καθημερινό σας πλάνο." },
+                { text: "Σπάνια / Προτιμώ επεξεργασμένες τροφές", score: 0, type: "neg", msg: "Χαμηλή πρόσληψη φυτικών ινών και απαραίτητων βιταμινών.", step: "Αντικαταστήστε ένα επεξεργασμένο σνακ με ένα φρέσκο φρούτο ή ξηρούς καρπούς." }
+            ]
+        },
+        {
+            pillar: "3. Διατροφή & Ενυδάτωση",
+            text: "Πόσο νερό πίνετε καθημερινά;",
+            options: [
+                { text: "1.5 - 2 λίτρα (8+ ποτήρια) ή περισσότερο", score: 12.5, type: "pos", msg: "Επαρκής καθημερινή ενυδάτωση.", step: null },
+                { text: "1 λίτρο (περίπου 4 ποτήρια)", score: 6.25, type: "neg", msg: "Οριακή ενυδάτωση οργανισμού.", step: "Έχετε πάντα ένα μπουκάλι νερό στο γραφείο ή δίπλα σας." },
+                { text: "Λιγότερο από 1 λίτρο / Ξεχνάω να πιώ νερό", score: 0, type: "neg", msg: "Ανεπαρκής πρόσληψη νερού.", step: "Ξεκινήστε την ημέρα σας πίνοντας ένα μεγάλο ποτήρι νερό μόλις ξυπνήσετε." }
+            ]
+        },
+        {
+            pillar: "4. Επιβλαβείς Συνήθειες",
+            text: "Ποια είναι η σχέση σας με το κάπνισμα / ατμισμα;",
+            options: [
+                { text: "Δεν καπνίζω / Το έχω διακόψει τελείως", score: 12.5, type: "pos", msg: "Απουσία επιβάρυνσης από το κάπνισμα.", step: null },
+                { text: "Περιστασιακό κάπνισμα / Ηλεκτρονικό τσιγάρο", score: 6.25, type: "neg", msg: "Περιστασιακή έκθεση σε βλαβερές ουσίες.", step: "Προσπαθήστε να μειώσετε σταδιακά τις περιστασιακές αφορμές καπνίσματος." },
+                { text: "Καθημερινός/η καπνιστής/τρια", score: 0, type: "neg", msg: "Συνεχής επιβάρυνση του αναπνευστικού και καρδιαγγειακού συστήματος.", step: "Καταγράψτε τις ώρες που καπνίζετε για να εντοπίσετε τα ερεθίσματα." }
+            ]
+        },
+        {
+            pillar: "4. Επιβλαβείς Συνήθειες",
+            text: "Πόσο συχνά καταναλώνετε αλκοόλ;",
+            options: [
+                { text: "Σπάνια ή καθόλου (0-1 ποτό την εβδομάδα)", score: 12.5, type: "pos", msg: "Ελάχιστη έως μηδενική κατανάλωση αλκοόλ.", step: null },
+                { text: "Μέτρια κατανάλωση (2-4 ποτά την εβδομάδα)", score: 6.25, type: "neg", msg: "Ήπια κατανάλωση αλκοόλ.", step: "Ορίστε ημέρες της εβδομάδας που δεν θα καταναλώνετε καθόλου αλκοόλ." },
+                { text: "Συχνή κατανάλωση (>5 ποτά την εβδομάδα)", score: 0, type: "neg", msg: "Αυξημένη κατανάλωση αλκοόλ.", step: "Αντικαταστήστε το αλκοόλ με ανθρακούχο νερό ή αφέψημα στα βραδινά γεύματα." }
+            ]
+        }
+    ];
+
+    let currentQuestion = 0;
+    let selectedAnswers = [];
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function startQuiz() {
+        currentQuestion = 0;
+        selectedAnswers = [];
+        showQuestion();
+        showScreen('screen-quiz');
+    }
+
+    function showQuestion() {
+        const q = questions[currentQuestion];
+        document.getElementById('question-meta').innerText = `ΕΡΩΤΗΣΗ ${currentQuestion + 1} ΑΠΟ ${questions.length} • ${q.pillar}`;
+        document.getElementById('question-text').innerText = q.text;
+        
+        const progress = ((currentQuestion) / questions.length) * 100;
+        document.getElementById('progress-bar').style.width = `${progress}%`;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        q.options.forEach((opt) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt.text;
+            btn.onclick = () => selectOption(opt);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(option) {
+        selectedAnswers.push(option);
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            showQuestion();
+        } else {
+            showScreen('screen-gate');
+        }
+    }
+
+    function unlockResults(e) {
+        e.preventDefault();
+        const email = document.getElementById('user-email').value;
+
+        if (!email) return;
+
+        let totalScore = 0;
+        let positives = [];
+        let negatives = [];
+        let steps = [];
+
+        selectedAnswers.forEach(ans => {
+            totalScore += ans.score;
+            if (ans.type === "pos") {
+                positives.push(ans.msg);
+            } else {
+                negatives.push(ans.msg);
+                if (ans.step && steps.length < 3) {
+                    steps.push(ans.step);
+                }
+            }
+        });
+
+        const defaultSteps = [
+            "Πίνετε ένα επιπλέον ποτήρι νερό κάθε πρωί μόλις ξυπνάτε.",
+            "Περπατήστε 10 λεπτά μετά το μεσημεριανό ή το βραδινό γεύμα.",
+            "Αποσυνδεθείτε από ψηφιακές οθόνες 30 λεπτά πριν κοιμηθείτε."
+        ];
+        while (steps.length < 3) {
+            steps.push(defaultSteps[steps.length]);
+        }
+
+        document.getElementById('score-value').innerText = `${Math.round(totalScore)} / 100`;
+
+        const posList = document.getElementById('positive-list');
+        posList.innerHTML = positives.map(p => `<li>${p}</li>`).join('');
+
+        const negList = document.getElementById('negative-list');
+        negList.innerHTML = negatives.map(n => `<li>${n}</li>`).join('');
+
+        const stepsList = document.getElementById('steps-list');
+        stepsList.innerHTML = steps.map((s, i) => `
+            <li>
+                <span class="step-number">${i+1}</span>
+                ${s}
+            </li>
+        `).join('');
+
+        sendEmailData(email, Math.round(totalScore), positives, negatives, steps);
+        showScreen('screen-report');
+    }
+
+    function sendEmailData(email, score, pos, neg, steps) {
+        const formData = new FormData();
+        formData.append("E-post", email);
+        formData.append("Vitalitetsindex", `${score} / 100`);
+        formData.append("Θετικά Σημεία", pos.join(" | "));
+        formData.append("Τομείς για Βελτίωση", neg.join(" | "));
+        formData.append("3 Μικρά Καθημερινά Βήματα", steps.join(" | "));
+        formData.append("Erbjudande", "Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.");
+
+        fetch("https://formsubmit.co/ajax/your-email@example.com", {
+            method: "POST",
+            body: formData
+        }).catch(err => console.log("FormSubmit dispatch error: ", err));
+    }
+</script>
+
+</body>
+</html>
