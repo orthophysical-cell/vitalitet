@@ -418,15 +418,15 @@
         <h1>Ξεκλειδώστε την Αναφορά σας</h1>
         
         <p class="gate-description">
-            Tack för ditt deltagande! För att se ditt Vitalitetsindex och låsa upp dina personliga hälsoråd, vänligen fyll i din e-postadress nedan.
+            Ευχαριστούμε για τη συμμετοχή σας! Για να δείτε τον Δείκτη Ζωτικότητάς σας και να ξεκλειδώσετε τις προσωπικές σας συμβουλές υγείας, παρακαλώ συμπληρώστε την ηλεκτρονική σας διεύθυνση παρακάτω.
         </p>
 
         <form id="email-form" onsubmit="unlockResults(event)">
             <div class="form-group">
-                <input type="email" id="user-email" class="form-control" placeholder="E-postadress" required>
+                <input type="email" id="user-email" class="form-control" placeholder="Ηλεκτρονική διεύθυνση (Email)" required>
             </div>
 
-            <button type="submit" class="btn">Lås upp mina resultat & skicka rapport</button>
+            <button type="submit" class="btn">Ξεκλείδωμα αποτελεσμάτων & αποστολή αναφοράς</button>
         </form>
 
         <div class="privacy-badge" style="margin-top: 20px; margin-bottom: 0;">
@@ -459,9 +459,9 @@
         </div>
 
         <div class="premium-box">
-            <h3>Personlig Rådgivning</h3>
+            <h3>Προσωπική Συμβουλευτική</h3>
             <p>
-                Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.
+                Εάν επιθυμείτε επιπλέον, συγκεκριμένες και εξατομικευμένες συμβουλές προσαρμοσμένες αποκλειστικά στο σώμα και στις μοναδικές σας ανάγκες, μπορείτε να τις λάβετε κατόπιν συνεννόησης online. Επικοινωνήστε μαζί μου για να κλείσετε μια προσωπική ψηφιακή συνεδρία.
             </p>
         </div>
 
@@ -660,7 +660,7 @@
         formData.append("Θετικά Σημεία", pos.join(" | "));
         formData.append("Τομείς για Βελτίωση", neg.join(" | "));
         formData.append("3 Μικρά Καθημερινά Βήματα", steps.join(" | "));
-        formData.append("Erbjudande", "Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.");
+        formData.append("Erbjudande", "Εάν επιθυμείτε επιπλέον, συγκεκριμένες και εξατομικευμένες συμβουλές προσαρμοσμένες αποκλειστικά στο σώμα και στις μοναδικές σας ανάγκες, μπορείτε να τις λάβετε κατόπιν συνεννόησης online. Επικοινωνήστε μαζί μου για να κλείσετε μια προσωπική ψηφιακή συνεδρία.");
 
         fetch("/", {
             method: "POST",
