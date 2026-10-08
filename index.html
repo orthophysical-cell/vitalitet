@@ -356,7 +356,7 @@
 <body>
 
 <div class="container">
-    <!-- STEG 0: EINSAĞÖGΗ -->
+    <!-- STEG 0: EISAGOGI -->
     <div id="screen-intro" class="screen active">
         <div class="creator-title">ΔΗΜΙΟΥΡΓΟΣ: ΝΙΚΟΣ ΑΛΕΞΟΠΟΥΛΟΣ</div>
         <h1>Ολοκληρωμένο Πρόγραμμα Προαγωγής Υγείας</h1>
@@ -401,7 +401,7 @@
         <button class="btn" onclick="startQuiz()">Έναρξη Τεστ</button>
     </div>
 
-    <!-- STEG 1: ΕΡΩΤΗΜΑΤΟΛΟΓΙΟ -->
+    <!-- STEG 1: EROTIMATOLOGIO -->
     <div id="screen-quiz" class="screen">
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar"></div>
@@ -413,12 +413,12 @@
         <div id="options-container" class="options-list"></div>
     </div>
 
-    <!-- STEG 2: SPÄRREN -->
+    <!-- STEG 2: SPARREN -->
     <div id="screen-gate" class="screen">
         <h1>Ξεκλειδώστε την Αναφορά σας</h1>
         
         <p class="gate-description">
-            Tack för ditt deltagande! För να se ditt Vitalitetsindex och låsa upp dina personliga hälsoråd, vänligen fyll i din e-postadress nedan.
+            Tack för ditt deltagande! För att se ditt Vitalitetsindex och låsa upp dina personliga hälsoråd, vänligen fyll i din e-postadress nedan.
         </p>
 
         <form id="email-form" onsubmit="unlockResults(event)">
@@ -482,7 +482,7 @@
     const questions = [
         {
             pillar: "1. Ύπνος & Στρες",
-            text: "Πόσες ώρες κοιμάστε συνήθως το night και πώς αξιολογείτε την ποιότητα του ύπνου σας;",
+            text: "Πόσες ώρες κοιμάστε συνήθως το βράδυ και πώς αξιολογείτε την ποιότητα του ύπνου σας;",
             options: [
                 { text: "7-8 ώρες συνεχόμενου, αναζωογονητικού ύπνου", score: 12.5, type: "pos", msg: "Επαρκής και ποιοτικός ύπνος για αποκατάσταση.", step: null },
                 { text: "6-7 ώρες, αλλά συχνά ξυπνάω κουρασμένος/η", score: 6.25, type: "neg", msg: "Μη αποτελεσματική αποκατάσταση κατά τη διάρκεια του ύπνου.", step: "Καθιερώστε σταθερή ώρα κατάκλισης και αποφύγετε οθόνες 1 ώρα πριν τον ύπνο." },
@@ -659,8 +659,8 @@
         formData.append("Vitalitetsindex", `${score} / 100`);
         formData.append("Θετικά Σημεία", pos.join(" | "));
         formData.append("Τομείς για Βελτίωση", neg.join(" | "));
-        formData.append("3 Μικρά Καθημερινά Βήματα"
-formData.append("Erbjudande", "Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.");
+        formData.append("3 Μικρά Καθημερινά Βήματα", steps.join(" | "));
+        formData.append("Erbjudande", "Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.");
 
         fetch("/", {
             method: "POST",
@@ -676,6 +676,7 @@ formData.append("Erbjudande", "Om du önskar ytterligare, specifika och personli
   <input type="text" name="Θετικά Σημεία" />
   <input type="text" name="Τομείς για Βελτίωση" />
   <input type="text" name="3 Μικρά Καθημερινά Βήματα" />
+  <input type="text" name="Erbjudande" />
 </form>
 
 </body>
