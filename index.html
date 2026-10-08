@@ -659,15 +659,24 @@
         formData.append("Vitalitetsindex", `${score} / 100`);
         formData.append("Θετικά Σημεία", pos.join(" | "));
         formData.append("Τομείς για Βελτίωση", neg.join(" | "));
-        formData.append("3 Μικρά Καθημερινά Βήματα", steps.join(" | "));
-        formData.append("Erbjudande", "Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.");
+        formData.append("3 Μικρά Καθημερινά Βήματα"
+formData.append("Erbjudande", "Om du önskar ytterligare, specifika och personliga råd skräddarsydda för just din kropp och dina unika behov, kan du få detta efter överenskommelse online. Kontakta mig för att boka en personlig digital konsultation.");
 
-        fetch("https://formsubmit.co/ajax/your-email@example.com", {
+        fetch("/", {
             method: "POST",
-            body: formData
-        }).catch(err => console.log("FormSubmit dispatch error: ", err));
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+        }).catch(err => console.log("Netlify dispatch error: ", err));
     }
 </script>
+
+<form name="contact" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="E-post" />
+  <input type="text" name="Vitalitetsindex" />
+  <input type="text" name="Θετικά Σημεία" />
+  <input type="text" name="Τομείς για Βελτίωση" />
+  <input type="text" name="3 Μικρά Καθημερινά Βήματα" />
+</form>
 
 </body>
 </html>
